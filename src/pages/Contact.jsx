@@ -17,7 +17,7 @@ export default function Contact() {
   return (
     <>
       <Helmet>
-        <title>Contact Our Admissions Desk | Air Foundation School \& College</title>
+        <title>Contact Our Admissions Desk | Air Foundation School & College</title>
       </Helmet>
 
       <section className="bg-primary text-white py-16">
@@ -44,15 +44,16 @@ export default function Contact() {
                 <div className="bg-primary/5 text-primary p-3 rounded-xl shrink-0"><MapPin size={20} className="text-secondary" /></div>
                 <div>
                   <h4 className="font-bold text-slate-800 font-poppins">School Campus Address</h4>
-                  <p className="mt-1 leading-relaxed">Salar Campus, Education District, Cityville, NY 10001</p>
+                  <p className="mt-1 leading-relaxed">House # 7 Dua chowk main university road capital enclave Jinnah Garden Islamabad</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <div className="bg-primary/5 text-primary p-3 rounded-xl shrink-0"><Phone size={20} className="text-secondary" /></div>
                 <div>
                   <h4 className="font-bold text-slate-800 font-poppins">Phone Contact Channels</h4>
-                  <p className="mt-1 font-semibold text-primary">+1 (800) 555-1234 (Main Desk)</p>
-                  <p className="text-xs text-slate-400 font-semibold mt-0.5">Admissions Extension: 202</p>
+                  <p className="mt-1 font-semibold text-primary">
+                    <a href="tel:0515148033" className="hover:underline">051 5148033</a>
+                  </p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
@@ -69,9 +70,9 @@ export default function Contact() {
             <div className="bg-slate-100 rounded-3xl overflow-hidden aspect-video border border-slate-200/60 shadow-sm relative flex items-center justify-center text-slate-400 text-xs">
               <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=600')] bg-cover bg-center opacity-40" />
               <div className="relative z-10 bg-white/95 text-slate-800 p-4 rounded-2xl shadow-lg border border-slate-100 text-center space-y-1 max-w-[200px]">
-                <h5 className="font-bold text-xs font-poppins">Air Foundation School \& College</h5>
+                <h5 className="font-bold text-xs font-poppins">Air Foundation School & College</h5>
                 <p className="text-[10px] text-slate-500">Salar Campus</p>
-                <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="text-[10px] text-primary font-bold hover:underline block pt-1">
+                <a href="https://maps.google.com/?q=33.57347093367743,73.16629491313103" target="_blank" rel="noreferrer" className="text-[10px] text-primary font-bold hover:underline block pt-1">
                   Open in Google Maps
                 </a>
               </div>
