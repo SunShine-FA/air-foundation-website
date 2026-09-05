@@ -1,5 +1,14 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { contentService } from '../services/contentService';
+import { getImageUrl } from '../utils/imageHelper';
+import cmImg from '../assets/CM.jpeg';
+import pImg from '../assets/P.jpeg';
+import vpImg from '../assets/VP.png';
+import drAmir from '../assets/Dr Amir.jpg';
+import drShahid from '../assets/Dr Shahid.jpg';
+import sirIqbal from '../assets/Sir Iqbal.jpg';
+import favatar from '../assets/favatar.png';
+import mavatar from '../assets/mavatar.png';
 import {
   STATS as DEFAULT_STATS,
   WHY_CHOOSE_US as DEFAULT_WHY_CHOOSE_US,
@@ -44,13 +53,13 @@ const DEFAULT_HISTORY = [
 ];
 
 const DEFAULT_MANAGEMENT = [
-  { name: 'Major (R) Sajid Kiani', role: 'Managing Director', bg: 'Major (R)', image: '/src/assets/CM.jpeg', sort_order: 1 },
-  { name: 'Dr. Shahid', role: 'Director', bg: 'Ph.D', image: '/src/assets/mavatar.png', sort_order: 2 },
-  { name: 'Dr. Amir Rafique', role: 'Director Academics', bg: 'Ph.D', image: '/src/assets/Dr Amir.jpg', sort_order: 3 },
-  { name: 'Ms. Nabila Sajid', role: 'Principal', bg: 'BS', image: '/src/assets/P.jpeg', sort_order: 4 },
-  { name: 'Ms. Bushra Abid', role: 'Vice Principal', bg: 'B.A', image: '/src/assets/VP.png', sort_order: 5 },
-  { name: 'Mr. Iqbal', role: 'Director Administration', bg: 'MBA', image: '/src/assets/Sir Iqbal.jpg', sort_order: 6 },
-  { name: 'Ms. Nadia Manzoor', role: 'Administration', bg: 'MBA', image: '/src/assets/favatar.png', sort_order: 7 }
+  { name: 'Major (R) Sajid Kiani', role: 'Managing Director', bg: 'Major (R)', image: cmImg, sort_order: 1 },
+  { name: 'Dr. Shahid', role: 'Director', bg: 'Ph.D', image: drShahid || mavatar, sort_order: 2 },
+  { name: 'Dr. Amir Rafique', role: 'Director Academics', bg: 'Ph.D', image: drAmir, sort_order: 3 },
+  { name: 'Ms. Nabila Sajid', role: 'Principal', bg: 'BS', image: pImg, sort_order: 4 },
+  { name: 'Ms. Bushra Abid', role: 'Vice Principal', bg: 'B.A', image: vpImg, sort_order: 5 },
+  { name: 'Mr. Iqbal', role: 'Director Administration', bg: 'MBA', image: sirIqbal, sort_order: 6 },
+  { name: 'Ms. Nadia Manzoor', role: 'Administration', bg: 'MBA', image: favatar, sort_order: 7 }
 ];
 
 export function DataProvider({ children }) {
@@ -121,37 +130,65 @@ export function DataProvider({ children }) {
       ]);
 
       if (heroRes?.success && heroRes.data) {
-        setHero(heroRes.data);
+        setHero({
+          ...heroRes.data,
+          background_image: getImageUrl(heroRes.data.background_image) || heroRes.data.background_image,
+          video_thumbnail: getImageUrl(heroRes.data.video_thumbnail) || heroRes.data.video_thumbnail
+        });
         setIsSupabaseConnected(true);
       }
       if (statsRes?.success && Array.isArray(statsRes.data) && statsRes.data.length > 0) setStats(statsRes.data);
-      if (progRes?.success && Array.isArray(progRes.data) && progRes.data.length > 0) setPrograms(progRes.data);
-      if (facRes?.success && Array.isArray(facRes.data) && facRes.data.length > 0) setFaculty(facRes.data);
+      if (progRes?.success && Array.isArray(progRes.data) && progRes.data.length > 0) {
+        setPrograms(progRes.data.map(p => ({ ...p, image: getImageUrl(p.image) })));
+      }
+      if (facRes?.success && Array.isArray(facRes.data) && facRes.data.length > 0) {
+        setFaculty(facRes.data.map(f => ({
+          ...f,
+          image: getImageUrl(f.image, (f.name || '').toLowerCase().includes("ma'am") || (f.name || '').toLowerCase().includes("ms") ? 'female' : 'male')
+        })));
+      }
       if (deptRes?.success && Array.isArray(deptRes.data) && deptRes.data.length > 0) setDepartments(deptRes.data);
-      if (facilRes?.success && Array.isArray(facilRes.data) && facilRes.data.length > 0) setFacilities(facilRes.data);
+      if (facilRes?.success && Array.isArray(facilRes.data) && facilRes.data.length > 0) {
+        setFacilities(facilRes.data.map(fc => ({ ...fc, image: getImageUrl(fc.image) })));
+      }
       if (galRes?.success && Array.isArray(galRes.data) && galRes.data.length > 0) {
         // Ensure every category has multiple rich photos
-        const combined = [...galRes.data];
+        const combined = galRes.data.map(g => ({ ...g, image: getImageUrl(g.image) }));
         DEFAULT_GALLERY.forEach((defItem) => {
           const count = combined.filter(c => (c.category || '').toLowerCase() === (defItem.category || '').toLowerCase()).length;
           if (count < 4 && !combined.some(c => c.title === defItem.title || c.image === defItem.image)) {
-            combined.push(defItem);
+            combined.push({ ...defItem, image: getImageUrl(defItem.image) });
           }
         });
         setGallery(combined);
       }
-      if (newsRes?.success && Array.isArray(newsRes.data) && newsRes.data.length > 0) setNews(newsRes.data);
-      if (eventRes?.success && Array.isArray(eventRes.data)) setEvents(eventRes.data);
-      if (testRes?.success && Array.isArray(testRes.data) && testRes.data.length > 0) setTestimonials(testRes.data);
+      if (newsRes?.success && Array.isArray(newsRes.data) && newsRes.data.length > 0) {
+        setNews(newsRes.data.map(n => ({ ...n, image: getImageUrl(n.image) })));
+      }
+      if (eventRes?.success && Array.isArray(eventRes.data)) {
+        setEvents(eventRes.data.map(e => ({ ...e, image: getImageUrl(e.image) })));
+      }
+      if (testRes?.success && Array.isArray(testRes.data) && testRes.data.length > 0) {
+        setTestimonials(testRes.data.map(t => ({ ...t, image: getImageUrl(t.image) })));
+      }
       if (downRes?.success && Array.isArray(downRes.data) && downRes.data.length > 0) setDownloads(downRes.data);
-      if (resRes?.success && Array.isArray(resRes.data)) setResults(resRes.data);
+      if (resRes?.success && Array.isArray(resRes.data)) {
+        setResults(resRes.data.map(r => ({ ...r, image: getImageUrl(r.image) })));
+      }
       if (faqRes?.success && Array.isArray(faqRes.data) && faqRes.data.length > 0) setFaqs(faqRes.data);
       if (carRes?.success && Array.isArray(carRes.data) && carRes.data.length > 0) setCareers(carRes.data);
       if (histRes?.success && Array.isArray(histRes.data) && histRes.data.length > 0) setHistory(histRes.data);
-      if (mgtRes?.success && Array.isArray(mgtRes.data)) setManagement(mgtRes.data);
+      if (mgtRes?.success && Array.isArray(mgtRes.data)) {
+        setManagement(mgtRes.data.map(m => ({ ...m, image: getImageUrl(m.image) })));
+      }
       if (leadRes?.success && Array.isArray(leadRes.data) && leadRes.data.length > 0) {
         const mapped = {};
-        leadRes.data.forEach(item => { mapped[item.id] = item; });
+        leadRes.data.forEach(item => {
+          mapped[item.id] = {
+            ...item,
+            image: getImageUrl(item.image)
+          };
+        });
         setLeadership(mapped);
       }
       if (settingsRes?.success && settingsRes.data) setSiteSettings(settingsRes.data);

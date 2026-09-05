@@ -1,12 +1,21 @@
 import React from 'react';
 import { Mail, Briefcase, GraduationCap } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getImageUrl, handleImageError } from '../utils/imageHelper';
 
 export default function FacultyCard({ faculty, index }) {
-  const isAvatar = typeof faculty.image === 'string' && (
-    faculty.image.includes('avatar') ||
-    faculty.image.includes('favatar') ||
-    faculty.image.includes('mavatar')
+  const isFemale = typeof faculty.name === 'string' && (
+    faculty.name.toLowerCase().includes("ma'am") ||
+    faculty.name.toLowerCase().includes("ms") ||
+    faculty.name.toLowerCase().includes("mrs") ||
+    faculty.name.toLowerCase().includes("miss")
+  );
+
+  const resolvedImg = getImageUrl(faculty.image, isFemale ? 'female' : 'male');
+  const isAvatar = typeof resolvedImg === 'string' && (
+    resolvedImg.includes('avatar') ||
+    resolvedImg.includes('favatar') ||
+    resolvedImg.includes('mavatar')
   );
 
   return (
@@ -20,8 +29,9 @@ export default function FacultyCard({ faculty, index }) {
       {/* Picture Box */}
       <div className={`relative overflow-hidden aspect-[4/5] shrink-0 ${isAvatar ? 'bg-gradient-to-b from-slate-100 to-slate-200 flex items-center justify-center p-6' : 'bg-slate-100'}`}>
         <img
-          src={faculty.image}
+          src={resolvedImg}
           alt={faculty.name}
+          onError={(e) => handleImageError(e, isFemale)}
           className={`w-full h-full transition-transform duration-500 group-hover:scale-105 ${
             isAvatar ? 'object-contain max-h-[85%] drop-shadow-sm' : 'object-cover object-top'
           }`}

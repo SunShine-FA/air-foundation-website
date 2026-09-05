@@ -2,6 +2,7 @@ import React from 'react';
 import { Calendar, Tag, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { getImageUrl } from '../utils/imageHelper';
 
 export default function NewsCard({ article, index }) {
   return (
@@ -14,7 +15,7 @@ export default function NewsCard({ article, index }) {
     >
       <div className="relative overflow-hidden aspect-[16/10] bg-slate-100 shrink-0">
         <img
-          src={article.image}
+          src={getImageUrl(article.image)}
           alt={article.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"

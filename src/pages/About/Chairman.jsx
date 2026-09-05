@@ -5,6 +5,8 @@ import SectionHeader from '../../components/SectionHeader';
 import { motion } from 'framer-motion';
 import { Clock, Mail, Quote, CheckCircle2 } from 'lucide-react';
 import { useData } from '../../context/DataContext';
+import cmImg from '../../assets/CM.jpeg';
+import { getImageUrl } from '../../utils/imageHelper';
 
 export default function Chairman() {
   const { leadership } = useData();
@@ -13,7 +15,7 @@ export default function Chairman() {
     name: 'Mr. Sajid Kiani',
     role: 'Managing Director',
     campus: 'Air Foundation School & College (Taha Shaheed Campus)',
-    image: '/src/assets/CM.jpeg',
+    image: cmImg,
     office_hours: '10:00 AM - 1:00 PM (Mon-Fri)',
     email: 'info@airfoundationtahashaheedcampus.com',
     quote: 'Education is not merely the acquisition of knowledge; it is the development of character, values, and the ability to transform society.',
@@ -66,8 +68,9 @@ export default function Chairman() {
               {/* Main Photo Card */}
               <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-slate-100">
                 <img
-                  src={data.image || '/src/assets/CM.jpeg'}
+                  src={getImageUrl(data.image) || cmImg}
                   alt={data.name}
+                  onError={(e) => { e.target.src = cmImg; }}
                   className="w-full aspect-[4/5] object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />

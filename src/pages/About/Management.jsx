@@ -5,6 +5,7 @@ import SectionHeader from '../../components/SectionHeader';
 import { motion } from 'framer-motion';
 import { useData } from '../../context/DataContext';
 import { User } from 'lucide-react';
+import { getImageUrl, handleImageError } from '../../utils/imageHelper';
 
 export default function Management() {
   const { management } = useData();
@@ -53,10 +54,10 @@ export default function Management() {
                   <div className="flex items-center space-x-4 min-w-0">
                     {mgt.image ? (
                       <img
-                        src={mgt.image}
+                        src={getImageUrl(mgt.image, (mgt.name || '').toLowerCase().includes("ms") ? 'female' : 'male')}
                         alt={mgt.name}
                         className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border border-slate-200/80 shadow-xs shrink-0 group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => { e.target.style.display = 'none'; }}
+                        onError={(e) => handleImageError(e, (mgt.name || '').toLowerCase().includes("ms"))}
                       />
                     ) : (
                       <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/15 text-primary flex items-center justify-center shrink-0">

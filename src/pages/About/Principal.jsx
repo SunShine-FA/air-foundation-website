@@ -5,6 +5,8 @@ import SectionHeader from '../../components/SectionHeader';
 import { motion } from 'framer-motion';
 import { Clock, Mail, Quote, CheckCircle2 } from 'lucide-react';
 import { useData } from '../../context/DataContext';
+import pImg from '../../assets/P.jpeg';
+import { getImageUrl } from '../../utils/imageHelper';
 
 export default function Principal() {
   const { leadership } = useData();
@@ -13,7 +15,7 @@ export default function Principal() {
     name: 'Ms. Nabeela Sajid',
     role: 'Principal',
     campus: 'Air Foundation School & College (Taha Shaheed Campus)',
-    image: '/src/assets/P.jpeg',
+    image: pImg,
     office_hours: '10:00 AM - 1:00 PM (Mon-Fri)',
     email: 'info@airfoundationtahashaheedcampus.com',
     quote: 'Education is the light that empowers minds, builds character, and transforms the future.',
@@ -65,8 +67,9 @@ export default function Principal() {
               {/* Main Photo Card */}
               <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-slate-100">
                 <img
-                  src={data.image || '/src/assets/P.jpeg'}
+                  src={getImageUrl(data.image) || pImg}
                   alt={data.name}
+                  onError={(e) => { e.target.src = pImg; }}
                   className="w-full aspect-[4/5] object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />

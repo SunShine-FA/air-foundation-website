@@ -3,6 +3,7 @@ import { Plus, Edit2, Trash2, Mail, Search, GripVertical, ChevronLeft, ChevronRi
 import CrudModal from '../components/CrudModal';
 import DeleteConfirmModal from '../components/DeleteConfirmModal';
 import { contentService } from '../../../services/contentService';
+import { getImageUrl, handleImageError } from '../../../utils/imageHelper';
 
 export default function FacultyModule({ faculty = [], departments = [], onRefresh, showToast }) {
   const [facultyList, setFacultyList] = useState(faculty);
@@ -336,10 +337,10 @@ export default function FacultyModule({ faculty = [], departments = [], onRefres
               {/* Photo Box */}
               <div className="relative aspect-[4/3] bg-slate-100 overflow-hidden">
                 <img
-                  src={member.image}
+                  src={getImageUrl(member.image, (member.name || '').toLowerCase().includes("ma'am") || (member.name || '').toLowerCase().includes("ms") ? 'female' : 'male')}
                   alt={member.name}
                   className="w-full h-full object-cover object-top"
-                  onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400'; }}
+                  onError={(e) => handleImageError(e, (member.name || '').toLowerCase().includes("ma'am") || (member.name || '').toLowerCase().includes("ms"))}
                 />
                 {(member.department || member.category) && (
                   <div className="absolute top-2.5 right-2.5 bg-slate-950/80 backdrop-blur-sm text-secondary text-[10px] font-bold px-2 py-0.5 rounded-md">

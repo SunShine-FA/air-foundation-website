@@ -20,6 +20,8 @@ import TestimonialCard from '../components/TestimonialCard';
 import Timeline from '../components/Timeline';
 import GalleryCategoryCard from '../components/GalleryCategoryCard';
 import GalleryLightbox from '../components/GalleryLightbox';
+import pImg from '../assets/P.jpeg';
+import { getImageUrl } from '../utils/imageHelper';
 
 export default function Home() {
   const {
@@ -102,7 +104,7 @@ export default function Home() {
   const principalData = leadership?.principal || {
     name: 'Ms. Nabeela Sajid',
     role: 'Principal, Air Foundation School & College',
-    image: '/src/assets/P.jpeg',
+    image: pImg,
     quote: 'Welcome to Air Foundation School & College, a vibrant community where our students are inspired to challenge conventions, investigate their environments, and lead change.'
   };
 
@@ -232,8 +234,9 @@ export default function Home() {
                 {/* Main Portrait Card */}
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-100">
                   <img
-                    src={principalData.image || '/src/assets/P.jpeg'}
+                    src={getImageUrl(principalData.image) || pImg}
                     alt={principalData.name}
+                    onError={(e) => { e.target.src = pImg; }}
                     className="w-full aspect-[4/5] object-cover object-top"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/20 to-transparent" />

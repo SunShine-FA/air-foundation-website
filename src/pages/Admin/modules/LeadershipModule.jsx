@@ -4,6 +4,7 @@ import { contentService } from '../../../services/contentService';
 import cmImg from '../../../assets/CM.jpeg';
 import pImg from '../../../assets/P.jpeg';
 import vpImg from '../../../assets/VP.png';
+import { getImageUrl } from '../../../utils/imageHelper';
 
 export default function LeadershipModule({ leadership = {}, onRefresh, showToast }) {
   const [selectedLeader, setSelectedLeader] = useState('chairman');
@@ -281,7 +282,7 @@ export default function LeadershipModule({ leadership = {}, onRefresh, showToast
             <div className="flex gap-2 items-center">
               {formData.image && (
                 <div className="w-10 h-10 rounded-xl overflow-hidden border border-slate-200 shrink-0 bg-slate-100 shadow-sm">
-                  <img src={formData.image} alt={formData.name || 'Preview'} className="w-full h-full object-cover" />
+                  <img src={getImageUrl(formData.image)} alt={formData.name || 'Preview'} className="w-full h-full object-cover" />
                 </div>
               )}
               <input

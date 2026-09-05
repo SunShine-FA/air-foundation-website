@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Building2 } from 'lucide-react';
+import { getImageUrl } from '../utils/imageHelper';
 
 export default function FacilityCard({ facility, index }) {
   return (
@@ -13,7 +14,7 @@ export default function FacilityCard({ facility, index }) {
     >
       <div className="relative overflow-hidden aspect-[4/3] bg-slate-100 shrink-0">
         <img
-          src={facility.image}
+          src={getImageUrl(facility.image)}
           alt={facility.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"

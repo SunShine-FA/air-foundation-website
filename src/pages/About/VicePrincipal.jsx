@@ -5,6 +5,8 @@ import SectionHeader from '../../components/SectionHeader';
 import { motion } from 'framer-motion';
 import { Clock, Mail, Quote, CheckCircle2 } from 'lucide-react';
 import { useData } from '../../context/DataContext';
+import vpImg from '../../assets/VP.png';
+import { getImageUrl } from '../../utils/imageHelper';
 
 export default function VicePrincipal() {
   const { leadership } = useData();
@@ -13,7 +15,7 @@ export default function VicePrincipal() {
     name: 'Ms. Bushra Abid',
     role: 'Vice Principal & Academic Head',
     campus: 'Air Foundation School & College (Taha Shaheed Campus)',
-    image: '/src/assets/VP.png',
+    image: vpImg,
     office_hours: '10:00 AM - 12:00 PM (Mon-Fri)',
     email: 'info@airfoundationtahashaheedcampus.com',
     quote: 'Education enlightens the mind, while discipline shapes the character. Together, they create responsible individuals and future leaders.',
@@ -64,8 +66,9 @@ export default function VicePrincipal() {
               {/* Main Photo Card */}
               <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-slate-100">
                 <img
-                  src={data.image || '/src/assets/VP.png'}
+                  src={getImageUrl(data.image) || vpImg}
                   alt={data.name}
+                  onError={(e) => { e.target.src = vpImg; }}
                   className="w-full aspect-[4/5] object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />

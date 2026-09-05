@@ -1,6 +1,7 @@
 import React from 'react';
 import { Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { getImageUrl, handleImageError } from '../utils/imageHelper';
 
 export default function TestimonialCard({ testimonial, index }) {
   return (
@@ -21,8 +22,9 @@ export default function TestimonialCard({ testimonial, index }) {
 
       <div className="flex items-center space-x-4 mt-8 border-t border-slate-100 pt-5">
         <img
-          src={testimonial.image}
+          src={getImageUrl(testimonial.image)}
           alt={testimonial.author}
+          onError={(e) => handleImageError(e, (testimonial.author || '').toLowerCase().includes("mrs") || (testimonial.author || '').toLowerCase().includes("ms"))}
           className="w-12 h-12 rounded-full object-cover border-2 border-primary/20 shrink-0"
           loading="lazy"
         />

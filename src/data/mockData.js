@@ -27,6 +27,8 @@ import nc from '../assets/nc.jpg';
 import fbise from '../assets/fbise.jpg';
 import prep from '../assets/prep.avif';
 import college from '../assets/college.avif';
+import pImg from '../assets/P.jpeg';
+import cmImg from '../assets/CM.jpeg';
 
 
 
@@ -441,7 +443,7 @@ export const FACULTY = [
     name: "Ma'am Nabila",
     role: "Academic Counselor & Master Educator",
     qualification: "M.Edu",
-    image: "/src/assets/P.jpeg",
+    image: pImg,
     experience: "7 Years Educational Leadership",
     email: "nabila@airfoundation.edu.pk"
   },
@@ -669,11 +671,12 @@ export const TESTIMONIALS = [
 ];
 
 export const DOWNLOADS = [
-  { id: 'down-1', title: 'Academic Calendar (Academic Year 2026-27)', size: '1.4 MB', format: 'PDF', file_url: '#', sort_order: 1 },
-  { id: 'down-2', title: 'Admissions Prospectus & Guidelines', size: '4.8 MB', format: 'PDF', file_url: '#', sort_order: 2 },
-  { id: 'down-3', title: 'Student Handbook & Code of Conduct', size: '2.1 MB', format: 'PDF', file_url: '#', sort_order: 3 },
-  { id: 'down-4', title: 'Fee Structure and Scholarship Matrix 2026', size: '890 KB', format: 'PDF', file_url: '#', sort_order: 4 },
-  { id: 'down-5', title: 'Syllabus & Stream Guide for Grade 11 & 12', size: '3.2 MB', format: 'PDF', file_url: '#', sort_order: 5 },
+  { id: 'down-1', title: 'Academic Calendar (Academic Year 2026-27)', size: '84 KB', format: 'PDF', file_url: 'https://gjfszbhnxxctqjsuzlag.supabase.co/storage/v1/object/public/media/assets/pdfs/Air%20Foundation%20Academic%20Calendar%202026_2027.pdf', sort_order: 1 },
+  { id: 'down-2', title: 'Admissions Prospectus & Guidelines', size: '1.4 MB', format: 'PDF', file_url: 'https://gjfszbhnxxctqjsuzlag.supabase.co/storage/v1/object/public/media/assets/pdfs/Air%20Foundation%20College%20Prospectus.pdf', sort_order: 2 },
+  { id: 'down-3', title: 'Taha Shaheed Campus Fee Structure', size: '68 KB', format: 'PDF', file_url: 'https://gjfszbhnxxctqjsuzlag.supabase.co/storage/v1/object/public/media/assets/pdfs/Air%20Foundation%20Taha%20Shaheed%20Campus%20Fee%20Structure.pdf', sort_order: 3 },
+  { id: 'down-4', title: 'School Admission Form Full', size: '243 KB', format: 'PDF', file_url: 'https://gjfszbhnxxctqjsuzlag.supabase.co/storage/v1/object/public/media/assets/pdfs/School%20Admision%20Form%20Full.pdf', sort_order: 4 },
+  { id: 'down-5', title: 'Rules and Regulations Handbook', size: '469 KB', format: 'PDF', file_url: 'https://gjfszbhnxxctqjsuzlag.supabase.co/storage/v1/object/public/media/assets/pdfs/Rules%20and%20Regulations.pdf', sort_order: 5 },
+  { id: 'down-6', title: 'Upcoming Activities Calendar (2026-2027)', size: '450 KB', format: 'PDF', file_url: 'https://gjfszbhnxxctqjsuzlag.supabase.co/storage/v1/object/public/media/assets/pdfs/upcoming%20activities%20for%20the%20year%202026-2027.pdf', sort_order: 6 },
 ];
 
 export const RESULTS = [
