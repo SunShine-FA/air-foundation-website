@@ -40,6 +40,9 @@ export default function Mission() {
             <Target size={40} className="text-secondary" />
           </div>
           <SectionHeader title="Our Strategic Objectives" subtitle="Mission Blueprint" alignment="center" />
+          <blockquote className="text-slate-700 font-poppins text-lg sm:text-2xl leading-relaxed italic border-l-4 border-secondary pl-6 text-left my-8">
+            "Our mission is to provide high-quality, modern, and relevant education in a nurturing and inclusive environment that promotes academic excellence, character building, critical thinking, creativity, and lifelong learning. We are committed to empowering every student with the knowledge, skills, values, and confidence to become responsible citizens and future leaders who contribute positively to society."
+          </blockquote>
           
           <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100/60 shadow-sm space-y-6">
             <h3 className="text-xl font-bold font-poppins text-slate-800 border-b border-slate-200 pb-3">

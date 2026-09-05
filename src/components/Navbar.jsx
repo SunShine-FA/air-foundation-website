@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown, Award } from 'lucide-react';
 import { NAV_LINKS, PORTAL_LINKS } from '../constants/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import logoImg from '../assets/logos.png';
+import logoImg from '../assets/logos.jpg';
 
 
 export default function Navbar() {
@@ -48,19 +48,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo Brand */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <div className="bg-white p-1 rounded-lg flex items-center justify-center shrink-0">
-              <img src={logoImg} alt="Air Foundation Logo" className="w-8 h-8 object-contain" />
+          <Link to="/" className="flex items-center space-x-3 group text-left">
+            <div className="bg-white p-1.5 rounded-xl flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+              <img src={logoImg} alt="Air Foundation Logo" className="w-9 h-9 object-contain" />
             </div>
             <div>
-              <span className="text-xl font-bold tracking-tight text-white block font-poppins">
+              <span className="text-sm sm:text-base lg:text-lg font-extrabold tracking-tight text-white block font-poppins leading-none">
                 AIR FOUNDATION SCHOOL & COLLEGE
               </span>
-              <span className="text-xl font-bold tracking-tight text-white block font-poppins">
-                (SALAR CAMPUS)
-              </span>
-              <span className="text-[10px] tracking-widest text-secondary uppercase font-semibold block">
-                Inspiring Excellence
+              <span className="text-[10px] sm:text-[11px] tracking-wider text-secondary uppercase font-bold block mt-1">
+                Taha Shaheed Campus • Inspiring Excellence
               </span>
             </div>
           </Link>

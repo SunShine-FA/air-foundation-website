@@ -2,15 +2,17 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../components/Breadcrumb';
 import SectionHeader from '../components/SectionHeader';
-import { EVENTS } from '../data/mockData';
-import { Calendar, Clock, MapPin, Bell } from 'lucide-react';
+import { Calendar, Clock, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useData } from '../context/DataContext';
 
 export default function Events() {
+  const { events } = useData();
+
   return (
     <>
       <Helmet>
-        <title>Campus Events Schedule | Air Foundation School \& College</title>
+        <title>Campus Events Schedule | Air Foundation School & College</title>
       </Helmet>
 
       <section className="bg-primary text-white py-16">
@@ -27,43 +29,53 @@ export default function Events() {
       </div>
 
       <section className="py-16 bg-white font-inter">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-12 text-left">
           <SectionHeader title="School Schedule & Gatherings" subtitle="Calendar Events" alignment="center" />
           
           <div className="space-y-6">
-            {EVENTS.map((evt, idx) => (
-              <motion.div
-                key={evt.id}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
-                className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start"
-              >
-                {/* Date block */}
-                <div className="bg-primary text-white p-4 sm:p-6 rounded-2xl text-center shrink-0 w-full md:w-32 flex flex-col items-center justify-center">
-                  <Calendar size={22} className="text-secondary mb-1.5" />
-                  <span className="text-sm font-bold uppercase tracking-wider">{evt.date.split(',')[0]}</span>
-                </div>
-
-                {/* Details */}
-                <div className="space-y-3 flex-grow">
-                  <h3 className="text-xl font-bold font-poppins text-slate-800 leading-snug">{evt.title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">{evt.description}</p>
-                  
-                  <div className="flex flex-wrap gap-4 text-xs font-semibold text-slate-400 pt-2 border-t border-slate-200/50">
-                    <span className="flex items-center space-x-1.5">
-                      <Clock size={14} className="text-primary" />
-                      <span>{evt.time}</span>
-                    </span>
-                    <span className="flex items-center space-x-1.5">
-                      <MapPin size={14} className="text-primary" />
-                      <span>{evt.location}</span>
-                    </span>
+            {events.length === 0 ? (
+              <div className="bg-slate-50 p-12 rounded-3xl border border-dashed border-slate-200 text-center space-y-3">
+                <Calendar size={40} className="mx-auto text-slate-300" />
+                <h4 className="text-base font-bold text-slate-700 font-poppins">No Upcoming Events Scheduled</h4>
+                <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                  There are currently no new calendar events posted. Please check back regularly for updates.
+                </p>
+              </div>
+            ) : (
+              events.map((evt, idx) => (
+                <motion.div
+                  key={evt.id || idx}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start"
+                >
+                  {/* Date block */}
+                  <div className="bg-primary text-white p-4 sm:p-6 rounded-2xl text-center shrink-0 w-full md:w-32 flex flex-col items-center justify-center">
+                    <Calendar size={22} className="text-secondary mb-1.5" />
+                    <span className="text-sm font-bold uppercase tracking-wider">{evt.date?.split(',')[0]}</span>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+
+                  {/* Details */}
+                  <div className="space-y-3 flex-grow">
+                    <h3 className="text-xl font-bold font-poppins text-slate-800 leading-snug">{evt.title}</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">{evt.description}</p>
+                    
+                    <div className="flex flex-wrap gap-4 text-xs font-semibold text-slate-400 pt-2 border-t border-slate-200/50">
+                      <span className="flex items-center space-x-1.5">
+                        <Clock size={14} className="text-primary" />
+                        <span>{evt.time}</span>
+                      </span>
+                      <span className="flex items-center space-x-1.5">
+                        <MapPin size={14} className="text-primary" />
+                        <span>{evt.location}</span>
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            )}
           </div>
         </div>
       </section>

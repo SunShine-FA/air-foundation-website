@@ -6,16 +6,17 @@ import { CreditCard, AlertCircle } from 'lucide-react';
 
 export default function Fees() {
   const feesData = [
-    { grade: 'Primary School (Grade 1-5)', tuition: '$4,500 / term', registration: '$500', caution: '$400' },
-    { grade: 'Middle School (Grade 6-8)', tuition: '$5,200 / term', registration: '$500', caution: '$400' },
-    { grade: 'High School (Grade 9-10)', tuition: '$6,000 / term', registration: '$600', caution: '$500' },
-    { grade: 'Junior College (Grade 11-12)', tuition: '$7,200 / term', registration: '$600', caution: '$500' }
+    { grade: 'Prep (P.G, Nursery & K.G)', tuition: 'Rs.5,000 / month', admission: 'Rs.5,000', annual: 'Rs.5,000', security:'Rs.3,000'  },
+    { grade: 'Primary School (Grade 1-5)', tuition: 'Rs.5,000 / month', admission: 'Rs.5,000', annual: 'Rs.5,000', security:'Rs.3,000'  },
+    { grade: 'Middle School (Grade 6-8)', tuition: 'Rs.5,000 / month', admission: 'Rs.5,000', annual: 'Rs.5,000', security:'Rs.3,000'  },
+    { grade: 'High School (Grade 9-10)', tuition: 'Rs.5,500 / month', admission: 'Rs.5,000', annual: 'Rs.5,000', security:'Rs.3,000'  },
+    { grade: 'College (Grade 11-12)', tuition: 'Rs.7,000 / month', admission: 'Rs.5,000', annual: 'Rs.5,000', security:'Rs.3,000' }
   ];
 
   return (
     <>
       <Helmet>
-        <title>Academic Fee Structure | Air Foundation School \& College</title>
+        <title>Academic Fee Structure | Air Foundation School & College</title>
       </Helmet>
 
       <section className="bg-primary text-white py-16">
@@ -41,9 +42,10 @@ export default function Fees() {
                 <thead className="bg-slate-50 text-slate-700 font-bold font-poppins text-xs uppercase tracking-wider border-b border-slate-200">
                   <tr>
                     <th className="p-5">Grade / Program</th>
-                    <th className="p-5">Tuition Fee (Per Term)</th>
-                    <th className="p-5">Registration Fee (One-time)</th>
-                    <th className="p-5">Caution Deposit (Refundable)</th>
+                    <th className="p-5">Tuition Fee (Per Month)</th>
+                    <th className="p-5">Admission Fee (One-Time)</th>
+                    <th className="p-5">Annual Charges</th>
+                    <th className="p-5">Security Fee</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 font-medium">
@@ -51,8 +53,9 @@ export default function Fees() {
                     <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
                       <td className="p-5 font-bold text-slate-800 font-poppins">{fee.grade}</td>
                       <td className="p-5 text-primary font-semibold">{fee.tuition}</td>
-                      <td className="p-5">{fee.registration}</td>
-                      <td className="p-5">{fee.caution}</td>
+                      <td className="p-5">{fee.admission}</td>
+                      <td className="p-5">{fee.annual}</td>
+                      <td className="p-5">{fee.security}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -65,7 +68,6 @@ export default function Fees() {
             <div className="space-y-1.5">
               <p className="font-bold text-slate-800">Important Fee Policies:</p>
               <ul className="list-disc pl-5 space-y-1 text-slate-500">
-                <li>An academic year consists of two terms (Term 1: April - September, Term 2: October - March).</li>
                 <li>Tuition fees must be cleared by the 10th of the first month of each term to avoid late penalty.</li>
                 <li>Refundable caution deposit is processed within 30 days of issuing the School leaving certificate.</li>
               </ul>

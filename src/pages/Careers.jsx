@@ -2,19 +2,25 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../components/Breadcrumb';
 import SectionHeader from '../components/SectionHeader';
-import { CAREERS } from '../data/mockData';
-import { Briefcase, MapPin, Send } from 'lucide-react';
+import { Briefcase, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useData } from '../context/DataContext';
 
 export default function Careers() {
+  const { careers } = useData();
+
   const handleApply = (title) => {
-    alert(`Application flow for "${title}" will open shortly. Please mail your CV to careers@premschool.edu.`);
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=info@airfoundationtahashaheedcampus.com&su=${encodeURIComponent(`Application for position: ${title}`)}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
   };
 
   return (
     <>
       <Helmet>
-        <title>Careers & Openings | Air Foundation School \& College</title>
+        <title>Careers & Openings | Air Foundation School & College</title>
       </Helmet>
 
       <section className="bg-primary text-white py-16">
@@ -34,10 +40,10 @@ export default function Careers() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-12">
           <SectionHeader title="Current Openings" subtitle="Join Our Team" alignment="center" />
           
-          <div className="space-y-6">
-            {CAREERS.map((job, idx) => (
+          <div className="space-y-6 text-left">
+            {careers.map((job, idx) => (
               <motion.div
-                key={idx}
+                key={job.id || idx}
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -45,9 +51,18 @@ export default function Careers() {
                 className="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-100/60 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6"
               >
                 <div className="space-y-2.5">
-                  <span className="text-[10px] font-bold text-primary bg-primary/5 px-2.5 py-1 rounded-md uppercase tracking-wider">
-                    {job.department}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold text-primary bg-primary/5 px-2.5 py-1 rounded-md uppercase tracking-wider">
+                      {job.department}
+                    </span>
+                    {job.status && (
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider ${
+                        job.status === 'Open' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-200 text-slate-600'
+                      }`}>
+                        {job.status}
+                      </span>
+                    )}
+                  </div>
                   <h3 className="text-lg font-bold font-poppins text-slate-800 pt-1">{job.title}</h3>
                   
                   <div className="flex flex-wrap gap-4 text-xs font-semibold text-slate-400">
@@ -62,10 +77,10 @@ export default function Careers() {
 
                 <button
                   onClick={() => handleApply(job.title)}
-                  className="bg-primary hover:bg-primary-light text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl flex items-center space-x-2 transition-all cursor-pointer shadow-sm hover:shadow-md shrink-0 w-full sm:w-auto justify-center"
+                  className="bg-primary hover:bg-primary-light text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl flex items-center space-x-2 shadow-md shadow-primary/10 transition-all hover:scale-105 active:scale-95 shrink-0 cursor-pointer"
                 >
                   <span>Apply Now</span>
-                  <Send size={12} />
+                  <Send size={14} />
                 </button>
               </motion.div>
             ))}

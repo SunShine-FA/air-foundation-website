@@ -35,7 +35,7 @@ export default function ParentPortal() {
   return (
     <>
       <Helmet>
-        <title>Parent Portal | Air Foundation School & College, Salar Campus</title>
+        <title>Parent Portal | Air Foundation School & College, Taha Shaheed Campus</title>
       </Helmet>
 
       {!isLoggedIn ? (
@@ -84,6 +84,7 @@ export default function ParentPortal() {
 
               <button
                 type="submit"
+                disabled
                 className="w-full bg-primary hover:bg-primary-light text-white font-bold py-3.5 rounded-lg transition-all cursor-pointer shadow-md hover:shadow-lg"
               >
                 Enter Portal

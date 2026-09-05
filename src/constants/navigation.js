@@ -7,8 +7,9 @@ export const NAV_LINKS = [
       { name: 'Vision', path: '/about/vision' },
       { name: 'Mission', path: '/about/mission' },
       { name: 'History', path: '/about/history' },
-      { name: 'Chairman\'s Message', path: '/about/chairman' },
+      { name: 'Managing Director\'s Message', path: '/about/chairman' },
       { name: 'Principal\'s Message', path: '/about/principal' },
+      { name: 'Vice Principal\'s Message', path: '/about/vice-principal' },
       { name: 'Management Desk', path: '/about/management' },
     ]
   },

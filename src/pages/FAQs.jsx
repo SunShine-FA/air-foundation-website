@@ -3,13 +3,15 @@ import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../components/Breadcrumb';
 import SectionHeader from '../components/SectionHeader';
 import FAQItem from '../components/FAQItem';
-import { FAQS } from '../data/mockData';
+import { useData } from '../context/DataContext';
 
 export default function FAQs() {
+  const { faqs } = useData();
+
   return (
     <>
       <Helmet>
-        <title>Frequently Asked Questions | Air Foundation School \& College</title>
+        <title>Frequently Asked Questions | Air Foundation School & College</title>
       </Helmet>
 
       <section className="bg-primary text-white py-16">
@@ -26,12 +28,12 @@ export default function FAQs() {
       </div>
 
       <section className="py-16 bg-slate-50 font-inter">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 space-y-12">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 space-y-12 text-left">
           <SectionHeader title="Frequently Asked Questions" subtitle="General Queries" alignment="center" />
           
           <div className="space-y-4">
-            {FAQS.map((faq, idx) => (
-              <FAQItem key={idx} faq={faq} index={idx} />
+            {faqs.map((faq, idx) => (
+              <FAQItem key={faq.id || idx} faq={faq} index={idx} />
             ))}
           </div>
         </div>

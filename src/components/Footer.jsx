@@ -2,10 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Award, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import logoImg from '../assets/logos.png';
+import logoImg from '../assets/logos.jpg';
+import { useData } from '../context/DataContext';
 
 export default function Footer() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { settings = {} } = useData();
+  const email = settings?.email || 'info@airfoundationtahashaheedcampus.com';
+  const phone = settings?.phone || '051 5148033';
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
   
   const onSubmit = (data) => {
     alert(`Thank you for subscribing, ${data.email}!`);
@@ -22,7 +27,7 @@ export default function Footer() {
               Stay Connected with Air Foundation <br /> School and College 
             </h3>
             <p className="text-lg text-slate-300">
-              (Salar Campus)
+              (Taha Shaheed Campus)
             </p>
             <p className="text-slate-400 mt-2 text-sm max-w-md">
               Subscribe to our monthly newsletter for campus event schedules, admissions updates, and achievements.
@@ -61,19 +66,16 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand Column */}
         <div className="space-y-6">
-          <Link to="/" className="flex items-center space-x-3 group">
-            <div className="bg-white p-1 rounded-lg flex items-center justify-center shrink-0">
-              <img src={logoImg} alt="Air Foundation Logo" className="w-8 h-8 object-contain" />
+          <Link to="/" className="flex items-center space-x-3 group text-left">
+            <div className="bg-white p-1.5 rounded-xl flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+              <img src={logoImg} alt="Air Foundation Logo" className="w-9 h-9 object-contain" />
             </div>
             <div>
-              <span className="text-xl font-bold tracking-tight text-white block font-poppins">
-                AIR FOUNDATION SCHOOL AND COLLEGE
+              <span className="text-sm sm:text-base font-extrabold tracking-tight text-white block font-poppins leading-none">
+                AIR FOUNDATION SCHOOL & COLLEGE
               </span>
-              <p className="text-lg text-slate-300">
-              (Salar Campus)
-            </p>
-              <span className="text-[10px] tracking-widest text-secondary uppercase font-semibold block">
-                Inspiring Excellence
+              <span className="text-[10px] sm:text-[11px] tracking-wider text-secondary uppercase font-bold block mt-1">
+                Taha Shaheed Campus • Inspiring Excellence
               </span>
             </div>
           </Link>
@@ -140,16 +142,24 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors underline decoration-secondary/50 underline-offset-4"
               >
-                Air Foundation School and College, Salar Campus
+                Air Foundation School and College, Taha Shaheed Campus
               </a>
             </li>
             <li className="flex items-center space-x-3">
               <Phone size={18} className="text-secondary shrink-0" />
-              <a href="tel:0515148033" className="hover:text-white transition-colors">051 5148033</a>
+              <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} className="hover:text-white transition-colors">{phone}</a>
             </li>
             <li className="flex items-center space-x-3">
               <Mail size={18} className="text-secondary shrink-0" />
-              <span>admissions@premschool.edu</span>
+              <a 
+                href={gmailUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors cursor-pointer"
+                title="Send email via Gmail"
+              >
+                {email}
+              </a>
             </li>
           </ul>
         </div>
@@ -158,7 +168,7 @@ export default function Footer() {
       {/* Footer Bottom Bar */}
       <div className="bg-slate-950 py-6 text-xs text-center border-t border-slate-800 text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>© {new Date().getFullYear()} Air Foundation School and College, Salar Campus. All Rights Reserved. Designed for premium education.</p>
+          <p>© {new Date().getFullYear()} Air Foundation School and College, Taha Shaheed Campus. All Rights Reserved. Designed for premium education.</p>
           <div className="flex space-x-6">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

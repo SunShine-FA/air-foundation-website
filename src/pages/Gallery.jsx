@@ -1,29 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../components/Breadcrumb';
 import SectionHeader from '../components/SectionHeader';
-import { GALLERY } from '../data/mockData';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useData } from '../context/DataContext';
+import GalleryCategoryCard from '../components/GalleryCategoryCard';
+import GalleryLightbox from '../components/GalleryLightbox';
 
 export default function Gallery() {
+  const { gallery } = useData();
   const [activeFilter, setActiveFilter] = useState('All');
-  const categories = ['All', 'Events', 'Arts', 'Tech', 'Sports', 'Academic', 'Ceremonies'];
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [lightboxList, setLightboxList] = useState([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const filteredGallery = activeFilter === 'All'
-    ? GALLERY
-    : GALLERY.filter(item => item.category.toLowerCase().includes(activeFilter.toLowerCase()) || activeFilter.toLowerCase().includes(item.category.toLowerCase()));
+  const categories = ['All', 'Tech', 'Sports', 'Events', 'Arts', 'Academic', 'Ceremonies'];
+
+  // Group photos by category for category cards
+  const categoryGroups = useMemo(() => {
+    const groups = {};
+    (gallery || []).forEach((item) => {
+      const cat = item.category || 'General';
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(item);
+    });
+    return groups;
+  }, [gallery]);
+
+  const filteredGallery = useMemo(() => {
+    if (activeFilter === 'All') return gallery || [];
+    return (gallery || []).filter(
+      item =>
+        (item.category || '').toLowerCase().includes(activeFilter.toLowerCase()) ||
+        activeFilter.toLowerCase().includes((item.category || '').toLowerCase())
+    );
+  }, [gallery, activeFilter]);
+
+  const handleOpenLightbox = (photo, list = filteredGallery, index = 0) => {
+    setSelectedPhoto(photo);
+    setLightboxList(list && list.length > 0 ? list : gallery);
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   return (
     <>
       <Helmet>
-        <title>Media Gallery | Air Foundation School \& College</title>
+        <title>Media Gallery | Air Foundation School & College</title>
       </Helmet>
 
       <section className="bg-primary text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-left">
           <h1 className="text-3xl sm:text-5xl font-extrabold font-poppins">Campus Media Gallery</h1>
           <p className="text-slate-200 text-sm sm:text-base mt-4 max-w-xl">
-            A window into student achievements, sports events, and arts programs.
+            A window into student achievements, robotics workshops, sports meets, exhibitions, and campus life.
           </p>
         </div>
       </section>
@@ -33,18 +64,22 @@ export default function Gallery() {
       </div>
 
       <section className="py-16 bg-white font-inter">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <SectionHeader title="Moments of Collaboration & Achievement" subtitle="Air Foundation Portfolio" alignment="center" />
-          
-          {/* Filters */}
-          <div className="flex flex-wrap justify-center gap-2.5 max-w-3xl mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <SectionHeader
+            title="Moments of Innovation, Creativity & Growth"
+            subtitle="Air Foundation Media Portfolio"
+            alignment="center"
+          />
+
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap justify-center gap-2.5 max-w-4xl mx-auto">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-5 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-350 cursor-pointer ${
+                className={`px-5 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                   activeFilter === cat
-                    ? 'bg-primary text-white shadow-md shadow-primary/10'
+                    ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
                 }`}
               >
@@ -53,35 +88,37 @@ export default function Gallery() {
             ))}
           </div>
 
-          {/* Grid */}
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <AnimatePresence>
-              {filteredGallery.map((item, idx) => (
-                <motion.div
-                  layout
-                  key={idx}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative rounded-2xl overflow-hidden group aspect-[4/3] bg-slate-100 shadow-sm hover:shadow-lg transition-shadow"
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                    <span className="text-[10px] text-secondary font-bold tracking-widest uppercase">{item.category}</span>
-                    <h4 className="text-white font-bold text-lg mt-1 font-poppins">{item.title}</h4>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+          {/* Gallery Bento Grid with Multi-Photo Event Album Cards */}
+          <motion.div
+            layout
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left"
+          >
+            {filteredGallery.length > 0 ? (
+              filteredGallery.map((albumItem, idx) => (
+                <GalleryCategoryCard
+                  key={albumItem.id || idx}
+                  album={albumItem}
+                  isFeatured={idx === 0 && activeFilter === 'All'}
+                  onOpenLightbox={(photo, list, pIdx) => handleOpenLightbox(photo, list, pIdx)}
+                />
+              ))
+            ) : (
+              <div className="col-span-full py-16 text-center text-slate-400 text-sm">
+                No event albums available for category: "{activeFilter}".
+              </div>
+            )}
           </motion.div>
         </div>
       </section>
+
+      {/* Responsive Lightbox Modal with Next/Prev Arrow Navigation & Scrolling */}
+      <GalleryLightbox
+        isOpen={lightboxOpen}
+        selectedItem={selectedPhoto}
+        allItems={lightboxList}
+        initialIndex={lightboxIndex}
+        onClose={() => setLightboxOpen(false)}
+      />
     </>
   );
 }

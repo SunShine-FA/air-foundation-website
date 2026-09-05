@@ -7,16 +7,15 @@ import { motion } from 'framer-motion';
 
 export default function Scholarships() {
   const scholarshipsList = [
-    { title: 'Presidential Merit Scholarship', desc: 'Up to 100% tuition fee waiver for academic toppers entering high school or junior college streams.', criteria: 'Consistent 95%+ or Grade A+ in previous examinations.' },
-    { title: 'Eminent Sports Bursary', desc: 'Awarded to athletes representing states or nations in team sports (Football, Basketball, Swimming).', criteria: 'State-level certification or podium placements in national school games.' },
-    { title: 'Symphony & Visual Arts Scholarship', desc: 'Covering up to 50% tuition for outstanding young musicians, theater actors, and painters.', criteria: 'Auditions or portfolio assessment with the Performing Arts board.' },
+    { title: 'Merit Scholarship', desc: 'Fully funded for academic toppers entering high school or college streams.', criteria: '90% and above marks in previous examinations.' },
+    { title: 'Concession', desc: '50% monthly fee concession for the students ', criteria: '81% upto 89% marks in previous examinations.' },
     { title: 'Need-based Financial Aid', desc: 'Partial grants matching family incomes to ensure quality education for talented children.', criteria: 'Submission of income statements and tax returns.' }
   ];
 
   return (
     <>
       <Helmet>
-        <title>Academic & Athletic Scholarships | Air Foundation School \& College</title>
+        <title>Academic Scholarships & Financial Aid | Air Foundation School & College</title>
       </Helmet>
 
       <section className="bg-primary text-white py-16">
@@ -34,7 +33,7 @@ export default function Scholarships() {
 
       <section className="py-16 bg-white font-inter">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <SectionHeader title="Academic Bursaries & Talent Awards" subtitle="Financial Support" alignment="center" />
+          <SectionHeader title="Academic Scholarships" subtitle="Financial Support" alignment="center" />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {scholarshipsList.map((sch, idx) => (

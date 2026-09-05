@@ -9,41 +9,43 @@ export default function ProgramCard({ program, index }) {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100 group flex flex-col h-full"
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100/90 group flex flex-col h-full w-full text-left"
     >
-      <div className="relative overflow-hidden aspect-video bg-slate-100 shrink-0">
+      <div className="relative overflow-hidden aspect-[16/10] bg-slate-100 shrink-0">
         <img
           src={program.image}
           alt={program.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
-        <div className="absolute top-4 left-4 bg-primary text-white p-2 rounded-lg shadow-md">
-          <BookOpen size={16} className="text-secondary animate-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-60" />
+        <div className="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white px-3 py-1.5 rounded-xl shadow-md flex items-center space-x-1.5 border border-white/10">
+          <BookOpen size={14} className="text-secondary" />
+          <span className="text-[10px] font-bold uppercase tracking-wider">Academic Stream</span>
         </div>
       </div>
 
-      <div className="p-6 flex-1 flex flex-col justify-between">
+      <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
         <div>
-          <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors font-poppins">
+          <h3 className="text-lg font-bold text-slate-900 group-hover:text-primary transition-colors font-poppins line-clamp-1">
             {program.title}
           </h3>
-          <p className="text-xs text-slate-400 mt-1 font-semibold">
-            Curriculum: {program.curriculum}
-          </p>
-          <p className="text-slate-600 text-sm mt-3.5 leading-relaxed">
+          <span className="inline-block text-[11px] text-primary font-bold bg-primary/5 px-2.5 py-0.5 rounded-md mt-1 line-clamp-1">
+            {program.curriculum}
+          </span>
+          <p className="text-slate-600 text-xs sm:text-sm mt-3 leading-relaxed line-clamp-3">
             {program.description}
           </p>
         </div>
 
-        <div className="mt-6 border-t border-slate-100 pt-4">
+        <div className="border-t border-slate-100 pt-4">
           <Link
             to="/academics"
-            className="inline-flex items-center space-x-2 text-primary font-bold text-sm hover:text-secondary-dark group/btn transition-colors"
+            className="inline-flex items-center space-x-2 text-primary font-bold text-xs uppercase tracking-wider hover:text-secondary-dark group/btn transition-colors"
           >
             <span>Explore Curriculum</span>
-            <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
+            <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
           </Link>
         </div>
       </div>

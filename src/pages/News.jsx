@@ -3,13 +3,15 @@ import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../components/Breadcrumb';
 import SectionHeader from '../components/SectionHeader';
 import NewsCard from '../components/NewsCard';
-import { NEWS } from '../data/mockData';
+import { useData } from '../context/DataContext';
 
 export default function News() {
+  const { news } = useData();
+
   return (
     <>
       <Helmet>
-        <title>Latest News & Bulletins | Air Foundation School \& College</title>
+        <title>Latest News & Bulletins | Air Foundation School & College</title>
       </Helmet>
 
       <section className="bg-primary text-white py-16">
@@ -29,9 +31,9 @@ export default function News() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <SectionHeader title="Air Foundation Bulletin Board" subtitle="News & Updates" alignment="center" />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {NEWS.map((article, idx) => (
-              <NewsCard key={article.id} article={article} index={idx} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
+            {news.map((article, idx) => (
+              <NewsCard key={article.id || idx} article={article} index={idx} />
             ))}
           </div>
         </div>

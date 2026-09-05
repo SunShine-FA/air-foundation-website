@@ -12,6 +12,7 @@ import Mission from '../pages/About/Mission';
 import History from '../pages/About/History';
 import Chairman from '../pages/About/Chairman';
 import Principal from '../pages/About/Principal';
+import VicePrincipal from '../pages/About/VicePrincipal';
 import Management from '../pages/About/Management';
 import AcademicsOverview from '../pages/Academics/AcademicsOverview';
 import Faculty from '../pages/Academics/Faculty';
@@ -30,6 +31,7 @@ import FAQs from '../pages/FAQs';
 import Contact from '../pages/Contact';
 import StudentPortal from '../pages/Portals/StudentPortal';
 import ParentPortal from '../pages/Portals/ParentPortal';
+import AdminPortal from '../pages/Admin/AdminPortal';
 import NotFound from '../pages/NotFound';
 
 export default function AppRoutes() {
@@ -45,6 +47,7 @@ export default function AppRoutes() {
       <Route path="/about/history" element={<MainLayout><History /></MainLayout>} />
       <Route path="/about/chairman" element={<MainLayout><Chairman /></MainLayout>} />
       <Route path="/about/principal" element={<MainLayout><Principal /></MainLayout>} />
+      <Route path="/about/vice-principal" element={<MainLayout><VicePrincipal /></MainLayout>} />
       <Route path="/about/management" element={<MainLayout><Management /></MainLayout>} />
       
       {/* Academics sub-routes */}
@@ -72,6 +75,9 @@ export default function AppRoutes() {
       <Route path="/portal/student" element={<MainLayout><StudentPortal /></MainLayout>} />
       <Route path="/portal/parent" element={<MainLayout><ParentPortal /></MainLayout>} />
       
+      {/* Protected Admin Management Portal (Access by typing /admin-portal in address bar) */}
+      <Route path="/admin-portal" element={<AdminPortal />} />
+
       {/* Fallback 404 */}
       <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
     </Routes>

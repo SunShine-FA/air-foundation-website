@@ -9,7 +9,7 @@ export default function Vision() {
   return (
     <>
       <Helmet>
-        <title>Our Vision | Air Foundation School \& College</title>
+        <title>Our Vision | Air Foundation School & College</title>
       </Helmet>
 
       <section className="bg-primary text-white py-16">
@@ -32,7 +32,7 @@ export default function Vision() {
           </div>
           <SectionHeader title="Inspiring Future Intellectuals" subtitle="Vision Statement" alignment="center" />
           <blockquote className="text-slate-700 font-poppins text-lg sm:text-2xl leading-relaxed italic border-l-4 border-secondary pl-6 text-left my-8">
-            "To be recognized globally as a model of educational excellence, nurturing creative and critical thinkers who possess the moral character, analytical capabilities, and global awareness to shape a positive future for their communities and the world."
+            "To be a center of educational excellence that nurtures lifelong learners, develops responsible citizens, and empowers future leaders with knowledge, character, and the skills to excel in a rapidly changing world."
           </blockquote>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left pt-8">

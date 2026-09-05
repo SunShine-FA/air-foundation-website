@@ -1,20 +1,32 @@
 import React from 'react';
 import { Phone, Mail, GraduationCap, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useData } from '../context/DataContext';
 
 export default function TopBar() {
+  const { settings = {} } = useData();
+  const email = settings?.email || 'info@airfoundationtahashaheedcampus.com';
+  const phone = settings?.phone || '051 5148033';
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`;
+
   return (
     <div className="bg-[#072a61] text-white text-xs py-2.5 px-4 sm:px-6 lg:px-8 border-b border-white/10 hidden md:block">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Contact info */}
         <div className="flex items-center space-x-6">
-          <a href="tel:0515148033" className="flex items-center space-x-2 hover:text-secondary transition-colors duration-200">
+          <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} className="flex items-center space-x-2 hover:text-secondary transition-colors duration-200">
             <Phone size={14} className="text-secondary" />
-            <span>051 5148033</span>
+            <span>{phone}</span>
           </a>
-          <a href="mailto:info@premschool.edu" className="flex items-center space-x-2 hover:text-secondary transition-colors duration-200">
+          <a 
+            href={gmailUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-2 hover:text-secondary transition-colors duration-200 cursor-pointer"
+            title="Send email via Gmail"
+          >
             <Mail size={14} className="text-secondary" />
-            <span>info@premschool.edu</span>
+            <span>{email}</span>
           </a>
         </div>
 
@@ -35,7 +47,7 @@ export default function TopBar() {
             <span>Parent Portal</span>
           </Link>
           <div className="flex items-center space-x-3 pl-1">
-            <span className="text-white/60">CEEB Code: 123456</span>
+            <span className="text-white/60">School Code : 1597</span>
           </div>
         </div>
       </div>
